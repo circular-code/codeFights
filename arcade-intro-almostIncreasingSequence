@@ -1,0 +1,33 @@
+function almostIncreasingSequence(sequence) {
+    
+    var deleted = false,
+        sequenceLength = sequence.length,
+        result = true;
+    
+    for (var i = 0; i < sequenceLength; i++) {
+     
+        var current = sequence[i],
+            next = sequence[i+1],
+            previous = sequence[i-1];
+        
+        if (( (next === 0 || next) && current >= next) || ((previous === 0 || previous) && current <= previous))
+            
+            if (deleted)
+                return false;
+            else {
+                deleted = true;
+                
+                if (next <= previous)
+                    sequence.splice(i+1, 1);
+                else
+                    sequence.splice(i, 1);
+                
+                if (i > -1 && current <= previous)
+                    return false;
+                
+                i--;
+            }
+    }
+    
+    return result;
+}
