@@ -50,3 +50,28 @@ Guaranteed constraints:
 [output] integer
 
 The total price of all the rooms that are suitable for the CodeBots to live in.
+
+*********** SOLUTION ***********
+
+function matrixElementsSum(matrix) {
+    
+    var totalPrice = 0,
+        hauntedArr = [];
+    
+    for (let i = 0; i < matrix.length; i++) {
+        
+        var row = matrix[i];
+        
+        for (let i = 0; i < row.length; i++) {
+            
+            var roomPrice = row[i];
+            
+            if (hauntedArr[i] !== 1 && roomPrice > 0)
+                totalPrice += roomPrice;
+            else
+                hauntedArr[i] = 1;
+        }
+    }
+    return totalPrice;
+}
+
