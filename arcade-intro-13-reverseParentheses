@@ -1,0 +1,55 @@
+You have a string s that consists of English letters, punctuation marks, whitespace characters, and brackets. It is guaranteed that the parentheses in s form a regular bracket sequence.
+
+Your task is to reverse the strings contained in each pair of matching parentheses, starting from the innermost pair. The results string should not contain any parentheses.
+
+Example
+
+For string s = "a(bc)de", the output should be
+reverseParentheses(s) = "acbde".
+
+Input/Output
+
+[execution time limit] 4 seconds (js)
+
+[input] string s
+
+A string consisting of English letters, punctuation marks, whitespace characters and brackets. It is guaranteed that parentheses form a regular bracket sequence.
+
+Constraints:
+5 ≤ s.length ≤ 55.
+
+[output] string
+
+********** SOLUTION **********
+
+function reverseParentheses(s) {
+    
+    if (s.indexOf('(') === -1 && s.indexOf(')') === -1)
+        return s;
+    
+    let indexOfLastOpenBracket = s.length,
+        sLength = indexOfLastOpenBracket;
+    
+    for (let i = 0; i < sLength; i++) {
+        
+        if (s[i] === '(')
+            indexOfLastOpenBracket = i;
+        
+        else if (s[i] === ')' && i > indexOfLastOpenBracket) {
+            let subString = s.substring(indexOfLastOpenBracket + 1, i),
+                reversedSubStringArray = [];
+            
+            for (let j = subString.length; j; j--)
+                reversedSubStringArray.push(subString[j-1]);
+            
+            s = s.substring(0, indexOfLastOpenBracket) + reversedSubStringArray.join('') + s.substring(i + 1, sLength);
+            i = -1;
+        }
+    }
+    
+    while (s.indexOf('(') > -1 || s.indexOf(')') > -1) {
+        s = s.replace('(', '').replace(')', '');
+    }
+    
+    return s;
+}
