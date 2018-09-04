@@ -48,7 +48,7 @@ function boxBlur(image) {
     var blurredImage = [];
     for (var i = 0; i < image.length; i++) {
      
-        var row = image[i],
+        var currentRow = image[i],
             bottomRow = image[i+1],
             topRow = image[i-1];
         
@@ -57,14 +57,17 @@ function boxBlur(image) {
         else 
             continue;
         
-        for (var j = 0; j < row.length; j++) {      
+        for (var j = 0; j < currentRow.length; j++) {      
             
             // if 3x3 square exists
-            if ((topRow[j+1] || topRow[j+1] === 0) &&
-                (bottomRow[j-1] || bottomRow[j-1] === 0)) {
+            if ((topRow[j+1] || topRow[j+1] === 0) && (bottomRow[j-1] || bottomRow[j-1] === 0)) {
                 
-                var average = topRow[j-1] + topRow[j] + topRow[j+1] + row[j-1] + row[j] + row[j+1] + bottomRow[j-1] + bottomRow[j] + bottomRow[j+1];
-                average = average/9 | 0;
+                var average = topRow[j-1] + topRow[j] + topRow[j+1] +
+                              currentRow[j-1] + currentRow[j] + currentRow[j+1] +
+                              bottomRow[j-1] + bottomRow[j] + bottomRow[j+1];
+                              
+                // divide by number of pixels, round down
+                average = average / 9 | 0;
             
                 blurredImage[i-1].push(average);
             }   
