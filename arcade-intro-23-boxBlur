@@ -60,9 +60,7 @@ function boxBlur(image) {
         for (var j = 0; j < row.length; j++) {      
             
             // if 3x3 square exists
-            if ((row[j-1] || row[j-1] === 0) &&
-                (row [j+1] || row[j+1] === 0) &&
-                (topRow[j+1] || topRow[j+1] === 0) &&
+            if ((topRow[j+1] || topRow[j+1] === 0) &&
                 (bottomRow[j-1] || bottomRow[j-1] === 0)) {
                 
                 var average = topRow[j-1] + topRow[j] + topRow[j+1] + row[j-1] + row[j] + row[j+1] + bottomRow[j-1] + bottomRow[j] + bottomRow[j+1];
