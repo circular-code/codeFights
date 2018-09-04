@@ -1,0 +1,76 @@
+Last night you partied a little too hard. Now there's a black and white photo of you that's about to go viral! You can't let this ruin your reputation, so you want to apply the box blur algorithm to the photo to hide its content.
+
+The pixels in the input image are represented as integers. The algorithm distorts the input image in the following way: Every pixel x in the output image has a value equal to the average value of the pixel values from the 3 × 3 square that has its center at x, including x itself. All the pixels on the border of x are then removed.
+
+Return the blurred image as an integer, with the fractions rounded down.
+
+Example
+
+For
+
+image = [[1, 1, 1], 
+         [1, 7, 1], 
+         [1, 1, 1]]
+the output should be boxBlur(image) = [[1]].
+
+For
+
+image = [[7, 4, 0, 1], 
+         [5, 6, 2, 2], 
+         [6, 10, 7, 8], 
+         [1, 4, 2, 0]]
+the output should be
+
+boxBlur(image) = [[5, 4], 
+                  [4, 4]]
+
+Input/Output
+
+[execution time limit] 4 seconds (js)
+
+[input] array.array.integer image
+
+An image, stored as a rectangular matrix of non-negative integers.
+
+Guaranteed constraints:
+3 ≤ image.length ≤ 10,
+3 ≤ image[0].length ≤ 10,
+0 ≤ image[i][j] ≤ 255.
+
+[output] array.array.integer
+
+A blurred image represented as integers, obtained through the process in the description.
+
+********** SOLUTION **********
+
+function boxBlur(image) {
+    
+    var blurredImage = [];
+    for (var i = 0; i < image.length; i++) {
+     
+        var row = image[i],
+            bottomRow = image[i+1],
+            topRow = image[i-1];
+        
+        if (bottomRow && topRow && topRow.length > 2)
+            blurredImage.push([]);
+        else 
+            continue;
+        
+        for (var j = 0; j < row.length; j++) {      
+            
+            // if 3x3 square exists
+            if ((row[j-1] || row[j-1] === 0) &&
+                (row [j+1] || row[j+1] === 0) &&
+                (topRow[j+1] || topRow[j+1] === 0) &&
+                (bottomRow[j-1] || bottomRow[j-1] === 0)) {
+                
+                var average = topRow[j-1] + topRow[j] + topRow[j+1] + row[j-1] + row[j] + row[j+1] + bottomRow[j-1] + bottomRow[j] + bottomRow[j+1];
+                average = average/9 | 0;
+            
+                blurredImage[i-1].push(average);
+            }   
+        }
+    }
+    return blurredImage;
+}
