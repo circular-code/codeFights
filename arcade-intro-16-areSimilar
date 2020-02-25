@@ -47,17 +47,11 @@ true if a and b are similar, false otherwise.
 
 function areSimilar(a, b) {
     let errorArrayA = [], errorArrayB = [];
-    for (var i = a.length -1; i + 1; i--) {
+    for (var i = a.length -1; i + 1; i--)
         if (a[i] !== b[i]) {
             errorArrayA.push(a[i]);
             errorArrayB.push(b[i]);
         }
-    }
     
-    if (errorArrayA.length === 0)
-        return true;
-    else if (errorArrayA.length === 2 && errorArrayA.join('') === errorArrayB.reverse().join(''))
-        return true;
-    else
-        return false
+    return errorArrayA.length === 0 || (errorArrayA.length === 2 && errorArrayA.join('') === errorArrayB.reverse().join('')))
 }
